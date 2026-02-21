@@ -10,7 +10,7 @@ const app = express();
 // app.use(cors());
 
 // serve the website
-app.use(express.static(path.join('./public')));
+app.use(express.static(path.join('public')));
 
 // handle requests to /todos
 app.use('/todos', router);

@@ -13,15 +13,16 @@ export async function getTodos(req, res) {
   }
 }
 
-export async function createTodo(req, res) {
-  try {
-    const dbConn = await getDbConnection();
-    const todos = await dbConn.run(`
-      INSERT INTO todos (todo_uuid, todo_text, date_created)
-      VALUES (?, ?, ?)
-    `), [req.];
-    res.status(200).json(todos);
-  } catch (err) {
-    console.error(err);
-  }
-}
+export async function createTodo(req, res) {}
+//   try {
+//     console.log(req.
+//     const dbConn = await getDbConnection();
+//     const todos = await dbConn.run(`
+//       INSERT INTO todos (todo_uuid, todo_text, date_created)
+//       VALUES (?, ?, ?)
+//     `), [req];
+//     res.status(200).json(todos);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
