@@ -1,61 +1,127 @@
 
-const serverIp = 'localhost';
+/*
+ *  static
+ */
+const serverProtocol = 'http';
+const serverDomain = 'localhost';
 const serverPort = '5000';
 
+/*
+ *  elements
+ */
 const newTodoForm = document.getElementById('new-todo');
 const todosContainer = document.getElementById('todos-container');
 
-newTodoForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  await createTodo();
-})
+/*
+ *  functions
+ */
 
-
-
-// new todo
-async function createTodo() {
-    try {
-    const res = await fetch(`http://${serverIp}:${serverPort}/todos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-}
-// edit existing todo
-async function updateTodo(todoText) {}
-// delete todo
-function deleteTodo(todoId) {}
-// delete all todos
-
-// get all todos
+// gets all todos from the server
 async function getTodos() {
   try {
-    const res = await fetch(`http://${serverIp}:${serverPort}/todos`, {
+    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
     });
-    const data = await res.json();
-    console.log(data);
-    return data;
+    return await res.json();
   } catch (err) {
     console.error(err);
   }
 }
 
+// posts a new todo to the database
+async function createTodo(todoData) {
+  try {
+    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(todoData)
+    });
+    const data = await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// edit existing todo
+async function updateTodo(todoText) {}
+
+// deletes a todo from the database
+async function deleteTodo(todoUuid) {
+  try {
+    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({todoUuid})
+    });
+    // check if response code is OK
+  } catch (err) {
+    console.error(err);
+  }
+}
+// delete all todos
 
 
+// render all todos from server
 async function renderTodos() {
   const todos = await getTodos();
-  todosContainer.textContent = todos;
+
+  const todosList = document.createElement('div');
+
+  for ({ todo_uuid, todo_text } of todos) {
+    const todoContainer = document.createElement('div');
+    const newTodo = document.createElement('p');
+    newTodo.textContent = todo_text;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('data-todo-uuid', todo_uuid);
+    deleteBtn.textContent = 'Delete';
+
+    todoContainer.appendChild(newTodo);
+    todoContainer.appendChild(deleteBtn);
+
+    todosList.appendChild(todoContainer);
+  }
+
+  todosContainer.replaceChildren(todosList);
 }
+
+/*
+ *  event listeners
+ */
+
+newTodoForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // get form data for the new todo
+  const newTodoFormData = new FormData(newTodoForm);
+  const todoUuid = crypto.randomUUID();
+  const todoText = newTodoFormData.get('todo-text');
+
+  // format form data
+  const todoData = {todoUuid, todoText};
+  // send form data to createTodo
+  await createTodo(todoData);
+  await renderTodos();
+  newTodoForm.reset();
+});
+
+// for deleting todos
+document.addEventListener('click', async (e) => {
+  if (e.target.dataset.todoUuid) {
+    await deleteTodo(e.target.dataset.todoUuid);
+    await renderTodos();
+  }
+});
+
+/*
+ *  init
+ */
 
 renderTodos();
