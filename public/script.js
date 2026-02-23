@@ -76,15 +76,17 @@ async function renderTodos() {
 
   for ({ todo_uuid, todo_text } of todos) {
     const todoContainer = document.createElement('div');
+    todoContainer.classList.add('todo-container');
+    // todo
     const newTodo = document.createElement('p');
     newTodo.textContent = todo_text;
-
+    // delete button
     const deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('data-todo-uuid', todo_uuid);
-    deleteBtn.textContent = 'Delete';
+    deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 
-    todoContainer.appendChild(newTodo);
     todoContainer.appendChild(deleteBtn);
+    todoContainer.appendChild(newTodo);
 
     todosList.appendChild(todoContainer);
   }

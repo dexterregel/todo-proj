@@ -6,7 +6,7 @@ export async function getTodos(req, res) {
     const dbConn = await getDbConnection();
     const todos = await dbConn.all(`
       SELECT * FROM todos
-      ORDER BY date_created ASC
+      ORDER BY date_created DESC
     `);
 
     res.status(200).json(todos);

@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>To-do</title>
+    <title>To-dos</title>
     <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"></head>
 <body>
-    <form id="new-todo">
-        <input
-            type="text"
-            name="todo-text"
-            placeholder="Enter a new to-do"
-        >
-        </input>
-        <button type="submit">Submit</button>
-    </form>
-    <div id="todos-container"></div>
+    <header>
+        <h1>To-dos <i class="fa-solid fa-list"></i></h1>
+    </header>
+    <main>
+        <form id="new-todo">
+            <input
+                type="text"
+                name="todo-text"
+                placeholder="Enter a new to-do"
+                autocomplete="off"
+                required
+            >
+            </input>
+            <button type="submit"><i class="fa-solid fa-plus"></i></button>
+        </form>
+        <div id="todos-container" class="todos-container"></div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>

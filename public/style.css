@@ -1,0 +1,97 @@
+body {
+    font-family: Arial;
+    color: #483753;
+    background-color: #ffe4fa;
+    margin: 0;
+}
+
+/*
+ *  header
+ */
+
+header {
+    text-align: center;
+    background-color: #ff94cb;
+}
+
+header h1 {
+    margin: 0;
+    padding: 10px;
+}
+
+/*
+ *  layout
+ */
+
+ main {
+    display: flex;
+    flex-direction: column;
+ }
+
+/*
+ *  new todo form
+ */
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+form input {
+    width: 250px;
+    border: 1px solid #ff94cb;
+    border-radius: 4px;
+}
+
+form button {
+    width: 25px;
+    height: 25px;
+    color: #ffe4fa;
+    background-color: #483753;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/*
+ *  todos
+ */
+
+ .todos-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+
+.todo-container {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #ff94cb;
+}
+
+.todo-container button {
+    width: 25px;
+    height: 25px;
+    visibility: hidden;
+    color: #ffe4fa;
+    background-color: #483753;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.todo-container:hover button {
+    visibility: visible;
+}
+
+.todo-container i {
+    /* this stops the icon from blocking the button click event */
+    pointer-events: none;
+}
