@@ -1,13 +1,13 @@
 
 /*
- *  static
+ *  static vars
  */
 const serverProtocol = 'http';
 const serverDomain = 'localhost';
 const serverPort = '5000';
 
 /*
- *  elements
+ *  element vars
  */
 const newTodoForm = document.getElementById('new-todo');
 const todosContainer = document.getElementById('todos-container');
@@ -50,7 +50,7 @@ async function createTodo(todoData) {
 // edit existing todo
 async function updateTodo(todoText) {}
 
-// deletes a todo from the database
+// deletes a todo
 async function deleteTodo(todoUuid) {
   try {
     const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
@@ -65,8 +65,6 @@ async function deleteTodo(todoUuid) {
     console.error(err);
   }
 }
-// delete all todos
-
 
 // render all todos from server
 async function renderTodos() {
