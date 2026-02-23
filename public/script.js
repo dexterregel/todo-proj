@@ -1,13 +1,13 @@
 
 /*
- *  static
+ *  static vars
  */
 const serverProtocol = 'http';
 const serverDomain = 'localhost';
 const serverPort = '5000';
 
 /*
- *  elements
+ *  element vars
  */
 const newTodoForm = document.getElementById('new-todo');
 const todosContainer = document.getElementById('todos-container');
@@ -50,7 +50,7 @@ async function createTodo(todoData) {
 // edit existing todo
 async function updateTodo(todoText) {}
 
-// deletes a todo from the database
+// deletes a todo
 async function deleteTodo(todoUuid) {
   try {
     const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
@@ -65,8 +65,6 @@ async function deleteTodo(todoUuid) {
     console.error(err);
   }
 }
-// delete all todos
-
 
 // render all todos from server
 async function renderTodos() {
@@ -76,15 +74,17 @@ async function renderTodos() {
 
   for ({ todo_uuid, todo_text } of todos) {
     const todoContainer = document.createElement('div');
+    todoContainer.classList.add('todo-container');
+    // todo
     const newTodo = document.createElement('p');
     newTodo.textContent = todo_text;
-
+    // delete button
     const deleteBtn = document.createElement('button');
     deleteBtn.setAttribute('data-todo-uuid', todo_uuid);
-    deleteBtn.textContent = 'Delete';
+    deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 
-    todoContainer.appendChild(newTodo);
     todoContainer.appendChild(deleteBtn);
+    todoContainer.appendChild(newTodo);
 
     todosList.appendChild(todoContainer);
   }
