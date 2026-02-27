@@ -18,9 +18,23 @@
                 required
             >
             </input>
-            <button type="submit"><i class="fa-solid fa-plus"></i></button>
+            <button type="submit">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </form>
         <div id="todos-container" class="todos-container"></div>
+        <dialog class="edit-todo">
+            <form id="edit-todo">
+                <p>Edit to-do</p>
+                <textarea name="edit-todo-text" required></textarea>
+                <button class="save-changes" type="submit">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+            </form>
+            <button class="close" type="button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </dialog>
     </main>
     <script src="script.js"></script>
 </body>
