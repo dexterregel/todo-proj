@@ -76,7 +76,13 @@ form button {
     border-bottom: 1px solid #ff94cb;
 }
 
-.todo-container button {
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.btn-container button {
     width: 25px;
     height: 25px;
     visibility: hidden;
@@ -91,7 +97,64 @@ form button {
     visibility: visible;
 }
 
-.todo-container i {
-    /* this stops the icon from blocking the button click event */
+/*
+ *  edit todos modal
+ */
+
+dialog {
+    width: 200px;
+    height: 200px;
+    background-color: #ffe4fa;
+    padding: 0;
+    border: 3px solid #ff94cb;
+    border-radius: 5px;
+    position: relative;
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+dialog form p {
+    margin: 0;
+}
+
+form textarea {
+    width: 150px;
+    height: 100px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    resize: none;
+}
+
+button.save-changes {
+    width: 150px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+}
+
+button.close {
+    width: 25px;
+    height: 25px;
+    color: #ffe4fa;
+    background-color: #483753;
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 0;
+    left: auto;
+    cursor: pointer;
+}
+
+i {
+    /* this stops the icons from blocking click events */
     pointer-events: none;
 }
