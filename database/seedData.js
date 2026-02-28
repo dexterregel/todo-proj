@@ -1,16 +1,23 @@
-
 import { getDbConnection } from './getDbConnection.js';
-import { todoData } from './data.js';
+import { userData } from './userData.js';
+import { todoData } from './todoData.js';
 
 async function seedData() {
   const dbConn = await getDbConnection();
   dbConn.exec('BEGIN TRANSACTION');
-  
-  for (const { todo_uuid, todo_text, date_created } of todoData) {
+
+  for (const { user_uuid, username, email, password } of userData) {
     await dbConn.run(`
-      INSERT INTO todos (todo_uuid, todo_text, date_created)
-      VALUES (?, ?, ?)
-    `, [todo_uuid, todo_text, date_created]);
+      INSERT INTO users (user_uuid, username, email, password)
+      VALUES (?, ?, ?, ?)
+    `, [user_uuid, username, email, password]);
+  }
+  
+  for (const { user_uuid, todo_uuid, todo_text, date_created } of todoData) {
+    await dbConn.run(`
+      INSERT INTO todos (user_uuid, todo_uuid, todo_text, date_created)
+      VALUES (?, ?, ?, ?)
+    `, [user_uuid, todo_uuid, todo_text, date_created]);
   }
 
   await dbConn.exec('COMMIT')
