@@ -44,6 +44,7 @@ you need to:
 create a users db table
   done
 create routes for the user signup
+  done
 create frontend code for the user signup
   username primary key
   password

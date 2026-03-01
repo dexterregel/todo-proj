@@ -4,6 +4,7 @@
 const serverProtocol = 'http';
 const serverDomain = 'localhost';
 const serverPort = '5000';
+export const serverUrl = `${serverProtocol}://${serverDomain}:${serverPort}`;
 
 /*
  *  element vars
