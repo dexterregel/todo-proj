@@ -1,9 +1,10 @@
 /*
  *  static vars
  */
-const serverProtocol = 'http';
+const serverProtocol = 'https';
 const serverDomain = 'localhost';
-const serverPort = '5000';
+const serverPort = '403';
+export const serverUrl = `${serverProtocol}://${serverDomain}:${serverPort}`;
 
 /*
  *  element vars
@@ -20,7 +21,7 @@ const todosContainer = document.getElementById('todos-container');
 // gets all todos from the server
 async function getTodos() {
   try {
-    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+    const res = await fetch(`${serverUrl}/todos`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ async function getTodos() {
 // posts a new todo to the database
 async function createTodo(todoText) {
   try {
-    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+    const res = await fetch(`${serverUrl}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ async function createTodo(todoText) {
 // edit existing todo
 async function editTodo(todoUuid, todoText) {
   try {
-    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+    const res = await fetch(`${serverUrl}/todos`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -67,7 +68,7 @@ async function editTodo(todoUuid, todoText) {
 // deletes a todo
 async function deleteTodo(todoUuid) {
   try {
-    const res = await fetch(`${serverProtocol}://${serverDomain}:${serverPort}/todos`, {
+    const res = await fetch(`${serverUrl}/todos`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ async function renderTodos() {
   if (todos.length > 0) {
     const todosList = document.createElement('div');
 
-    for ({ todo_uuid, todo_text } of todos) {
+    for (const { todo_uuid, todo_text } of todos) {
       const todoContainer = document.createElement('div');
       todoContainer.classList.add('todo-container');
 

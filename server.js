@@ -1,8 +1,10 @@
 import express from 'express';
+import https from 'node:https';
 import path from 'node:path';
+import fs from 'node:fs/promises';
 import { router } from './routes/router.js';
 
-const PORT = 5000;
+const HTTPS_PORT = 403;
 
 const app = express();
 
@@ -18,4 +20,12 @@ app.use((req, res) => {
   res.status(404).json({message: 'Resource not found.'});
 });
 
-app.listen(PORT, () => {console.log(`Server listening on port ${PORT}`)});
+// start the server
+const options = {
+  key: await fs.readFile(path.join('cert', 'key.pem')),
+  cert: await fs.readFile(path.join('cert', 'cert.pem'))
+}
+
+https.createServer(options, app).listen(HTTPS_PORT, () => {
+  console.log(`Secure server listening on port ${HTTPS_PORT}`);
+});
