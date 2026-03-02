@@ -1,3 +1,10 @@
+import {
+  createTodo,
+  getTodos,
+  deleteTodo
+} from './todos.js';
+import { showEditTodoModal } from './editTodos.js';
+
 /*
  *  static vars
  */
@@ -10,79 +17,10 @@ export const serverUrl = `${serverProtocol}://${serverDomain}:${serverPort}`;
  *  element vars
  */
 const newTodoForm = document.getElementById('new-todo');
-const editTodoModal = document.querySelector('dialog');
-const editTodoForm = document.getElementById('edit-todo');
 const todosContainer = document.getElementById('todos-container');
 
-/*
- *  todo functions
- */
-
-// gets all todos from the server
-async function getTodos() {
-  try {
-    const res = await fetch(`${serverUrl}/todos`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-    return await res.json();
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-// posts a new todo to the database
-async function createTodo(todoText) {
-  try {
-    const res = await fetch(`${serverUrl}/todos`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({todoText})
-    });
-    const data = await res.json();
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-// edit existing todo
-async function editTodo(todoUuid, todoText) {
-  try {
-    const res = await fetch(`${serverUrl}/todos`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({todoUuid, todoText})
-    });
-    // check if response code is OK
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-// deletes a todo
-async function deleteTodo(todoUuid) {
-  try {
-    const res = await fetch(`${serverUrl}/todos`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({todoUuid})
-    });
-    // check if response code is OK
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 // render all todos from server
-async function renderTodos() {
+export async function renderTodos() {
   const todos = await getTodos();
 
   if (todos.length > 0) {
@@ -130,17 +68,6 @@ async function renderTodos() {
 }
 
 /*
- *  layout
- */
-
-// prepare and show edit todo modal
-async function showEditTodoModal(todoUuid, todoText) {
-  document.querySelector('#edit-todo textarea').value = todoText;
-  editTodoForm.setAttribute('data-todo-uuid', todoUuid);
-  editTodoModal.showModal();
-}
-
-/*
  *  event listeners
  */
 
@@ -156,22 +83,6 @@ newTodoForm.addEventListener('submit', async (e) => {
   await createTodo(todoText);
   await renderTodos();
   newTodoForm.reset();
-});
-
-// send updated todo data to the server
-editTodoForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const editTodoFormData = new FormData(editTodoForm);
-  const editTodoText = editTodoFormData.get('edit-todo-text');
-  await editTodo(e.target.dataset.todoUuid, editTodoText);
-  await renderTodos();
-  editTodoModal.close();
-});
-
-// for closing the edit todo modal
-document.querySelector('button.close').addEventListener('click', () => {
-  editTodoModal.close();
 });
 
 // for deleting and editing todos
