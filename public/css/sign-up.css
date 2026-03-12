@@ -11,7 +11,7 @@ body {
  */
 
 header {
-    height: 4rem;
+    height: 4em;
     background-color: #ff94cb;
     text-align: center;
     display: grid;

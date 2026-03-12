@@ -89,11 +89,11 @@ newTodoForm.addEventListener('submit', async (e) => {
 document.addEventListener('click', async (e) => {
   if (e.target.dataset.todoUuid) {
     const todoUuid = e.target.dataset.todoUuid;
-    const action = e.target.dataset.action;
-    if (action === 'delete') {
+    const btnAction = e.target.dataset.action;
+    if (btnAction === 'delete') {
       await deleteTodo(todoUuid);
       await renderTodos();
-    } else if (action === 'open-edit-todo-modal') {
+    } else if (btnAction === 'open-edit-todo-modal') {
       const parentTodoContainer = e.target.closest('.todo-container');
       const todoText = parentTodoContainer.querySelector('p').textContent;
       showEditTodoModal(todoUuid, todoText);

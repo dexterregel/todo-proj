@@ -10,21 +10,19 @@ body {
  */
 
 header {
+    height: 4em;
     text-align: center;
     background-color: #ff94cb;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
+    border-bottom: 5px solid #483753;
 }
 
 header h1 {
-    padding: 10px;
+    text-wrap: nowrap;
+    grid-column: 2;
     margin: 0;
-}
-
-header a {
-    margin-left: auto;
 }
 
 /*
@@ -44,8 +42,8 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 0.625em;
+    margin: 1.25em 0;
 }
 
 form input {
@@ -93,16 +91,11 @@ form button {
 .btn-container button {
     width: 25px;
     height: 25px;
-    visibility: hidden;
     color: #ffe4fa;
     background-color: #483753;
     border: none;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.todo-container:hover button {
-    visibility: visible;
 }
 
 /*
@@ -165,4 +158,18 @@ button.close {
 i {
     /* this stops the icons from blocking click events */
     pointer-events: none;
+}
+
+/*
+ *  media queries
+ */
+
+@media (min-width: 1024px) {
+    .btn-container button {
+        visibility: hidden;
+    }
+
+    .todo-container:hover button {
+        visibility: visible;
+    }
 }
