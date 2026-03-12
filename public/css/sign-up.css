@@ -1,0 +1,72 @@
+body {
+    min-width: 100vw;
+    font-family: Arial;
+    color: #483753;
+    background-color: #ffe4fa;
+    margin: 0;
+}
+
+/*
+ *  header
+ */
+
+header {
+    height: 4em;
+    background-color: #ff94cb;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    border-bottom: 5px solid #483753;
+}
+
+header h1 {
+    margin: 0;
+    text-wrap: nowrap;
+}
+
+/*
+ *  form
+ */
+
+form {
+    margin-top: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.25em;
+}
+
+form input:active,
+form input:focus {
+    outline-color: red;
+}
+
+.show-password-container {
+    font-size: 0.625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up button {
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    color: #ffe4fa;
+    background-color: #483753;
+    border: 3px solid #ff94cb;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.sign-up button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
