@@ -12,11 +12,19 @@ body {
 header {
     text-align: center;
     background-color: #ff94cb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 header h1 {
-    margin: 0;
     padding: 10px;
+    margin: 0;
+}
+
+header a {
+    margin-left: auto;
 }
 
 /*
